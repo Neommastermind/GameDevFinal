@@ -25,6 +25,9 @@ public class Player : Entity {
     //Shield stability 0.0f - 1.0f
     private static float stability;
 
+    private static Animator weapon;
+    private static Animator shield;
+
     // Use this for initialization
     void Start () {
         if (strength <= 0)
@@ -44,12 +47,57 @@ public class Player : Entity {
 
         healthText.text = "Health: " + health;
         staminaText.text = "Stamina: " + stamina;
+
+        weapon = GameObject.FindGameObjectWithTag("Sword").GetComponent<Animator>();
+        shield = GameObject.FindGameObjectWithTag("Shield").GetComponent<Animator>();
+
+        StartCoroutine("RegenStamina");
     }
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+
+        if (Input.GetMouseButtonDown(0) && Input.GetKey(KeyCode.LeftShift) && stamina >= 50 && weapon.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        {
+            //Heavy attack
+            stamina -= 50;
+            weapon.Play("Heavy-Attack");
+        }
+        else if (Input.GetMouseButtonDown(0) && stamina >= 25 && weapon.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        {
+            //Light attack
+            stamina -= 25;
+            weapon.Play("Light-Attack");
+        }
+
+        if(Input.GetMouseButtonDown(1))
+        {
+            //Start blocking
+            shield.SetBool("Blocking", true);
+        }
+        else if (Input.GetMouseButtonUp(1))
+        {
+            //Stop Blocking
+            shield.SetBool("Blocking", false);
+        }
+
+        staminaText.text = "Stamina: " + stamina;
+    }
+
+    IEnumerator RegenStamina()
+    {
+        while (true)
+        {
+            if (!shield.GetBool("Blocking") && stamina < staminaTotal)
+            {
+                //Only regen stamina if the player isn't blocking, and you haven't exceeded the stamina total.
+                stamina += 5 + (endurance*5);
+                //Make sure we don't go over the stamina total.
+                stamina = Mathf.Clamp(stamina, 0, staminaTotal);
+            }
+            yield return new WaitForSeconds(1);
+        }
+    }
 
     private void SetStats()
     {
