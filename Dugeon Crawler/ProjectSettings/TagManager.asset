@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Sword
   - Shield
+  - Enemy
+  - EnemyWeapon
   layers:
   - Default
   - TransparentFX
@@ -18,9 +20,9 @@ TagManager:
   - PostProcessing
   - World
   - Player
-  - PlayerItems
-  - 
-  - 
+  - PlayerItem
+  - Enemy
+  - EnemyItem
   - 
   - 
   - 

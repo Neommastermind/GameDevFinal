@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Player : Entity {
+public class Player : MonoBehaviour {
 
     public Text healthText;
     public Text staminaText;
@@ -24,6 +24,7 @@ public class Player : Entity {
     private static int armor;
     //Shield stability 0.0f - 1.0f
     private static float stability;
+    private static bool isLevelApplied = true;
 
     private static Animator weapon;
     private static Animator shield;
@@ -63,7 +64,7 @@ public class Player : Entity {
             stamina -= 50;
             weapon.Play("Heavy-Attack");
         }
-        else if (Input.GetMouseButtonDown(0) && stamina >= 25 && weapon.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        else if (Input.GetMouseButtonDown(0) && !Input.GetKey(KeyCode.LeftShift) && stamina >= 25 && weapon.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
             //Light attack
             stamina -= 25;
@@ -106,5 +107,39 @@ public class Player : Entity {
         expNeeded = 100 + (int)Mathf.Floor(Mathf.Exp(level));
         fullDamage = weaponDamage + (10 * (strength-1));
 
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("EnemyWeapon"))
+        {
+
+        }
+    }
+
+    public int GetLevel()
+    {
+        return level;
+    }
+
+    public int GetFullDamage()
+    {
+        return fullDamage;
+    }
+
+    public void AddExp(int experience)
+    {
+        exp += experience;
+
+        if (isLevelApplied && exp >= expNeeded)
+        {
+            isLevelApplied = false;
+
+        }
+    }
+
+    public void AddGold(int goldGain)
+    {
+        gold += goldGain;
     }
 }
