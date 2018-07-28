@@ -4,36 +4,52 @@ using UnityEngine;
 
 public class WeaponCollider : MonoBehaviour {
 
-    void OnTriggerEnter(Collider other)
+    private Enemy enemy;
+
+    void OnCollisionEnter(Collision other)
     {
-        if (gameObject.CompareTag("Sword")) { 
-            if (other.gameObject.CompareTag("Enemy"))
-            {
-                int damage = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().GetFullDamage();
-                Enemy enemy = other.gameObject.GetComponentInParent<Enemy>();
-
-                if (gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Light-Attack"))
-                {
-                    enemy.TakeDamage(damage);
-                }
-                else
-                {
-                    enemy.TakeDamage((int)Mathf.Floor(damage * 1.25f));
-                }
-            }
-        }
-        else if (gameObject.CompareTag("EnemyWeapon"))
+        if (other.gameObject.CompareTag("Enemy") && gameObject.CompareTag("Sword"))
         {
-            Enemy enemy = gameObject.GetComponentInParent<Enemy>();
+            Debug.Log("Enemy hit");
+            enemy = other.gameObject.GetComponent<Enemy>();
+        }
+        else if (gameObject.CompareTag("EnemyWeapon") && !other.gameObject.CompareTag("Sword"))
+        {
+            enemy = gameObject.GetComponentInParent<Enemy>();
 
-            if (other.gameObject.CompareTag("Player"))
+            if (!enemy.GetHasHit() && other.gameObject.CompareTag("Shield"))
             {
-                enemy.DealDamage(false);   
-            }
-            else if(other.gameObject.CompareTag("Shield"))
-            {
+                Debug.Log("Shield hit");
+                enemy.SetHasHit(true);
                 enemy.DealDamage(true);
             }
+            else if (!enemy.GetHasHit() && other.gameObject.CompareTag("Player"))
+            {
+                Debug.Log("Player hit");
+                enemy.SetHasHit(true);
+                enemy.DealDamage(false);
+            }
+        }
+    }
+
+    public void DamageEnemy()
+    {
+        if (enemy != null)
+        {
+            int damage = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().GetFullDamage();
+
+            if (gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Light-Attack"))
+            {
+                enemy.TakeDamage(damage);
+            }
+            else
+            {
+                enemy.TakeDamage((int)Mathf.Floor(damage * 1.25f));
+            }
+        }
+        else
+        {
+            Debug.Log("No Enemy");
         }
     }
 }

@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour {
     private int fullDamage;
     private int armor;
     private bool dead = false;
+    private bool hasHit = false;
 
     private Animator animator;
     private Player player;
@@ -50,7 +51,7 @@ public class Enemy : MonoBehaviour {
 
         healthTotal = 100 + (10 * (vitality - 1));
         health = healthTotal;
-        weaponDamage = 25;
+        weaponDamage = 10;
         fullDamage = weaponDamage + (5 * (strength - 1));
         armor = Random.Range(0, level/3);
         exp = 15*level;
@@ -62,7 +63,6 @@ public class Enemy : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Debug.Log("Enemy Health: " + health);
 	}
 
     IEnumerator Attack()
@@ -98,6 +98,7 @@ public class Enemy : MonoBehaviour {
         if (!dead) {
             health -= Mathf.Abs(damage - armor);
             health = Mathf.Clamp(health, 0, healthTotal);
+            Debug.Log("Enemy Health: " + health);
 
             if (health == 0)
             {
@@ -126,6 +127,23 @@ public class Enemy : MonoBehaviour {
         {
             player.TakeDamage((int)Mathf.Floor(fullDamage * 1.25f), blocked);
         }
+    }
+
+    public void ResetHit()
+    {
+        //This is used for an animation event to reset the hit
+        //At the end of every attack animation
+        hasHit = false;
+    }
+   
+    public void SetHasHit(bool status)
+    {
+        hasHit = status;
+    }
+
+    public bool GetHasHit()
+    {
+        return hasHit;
     }
 
 }

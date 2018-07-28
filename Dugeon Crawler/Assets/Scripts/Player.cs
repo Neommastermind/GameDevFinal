@@ -21,9 +21,9 @@ public class Player : MonoBehaviour {
     private static int endurance;
     private static int weaponDamage;
     private static int fullDamage;
-    private static int armor;
+    private static int armor = 0;
     //Shield stability 0.0f - 1.0f
-    private static float stability;
+    private static float stability = 0.05f;
     private static bool isLevelApplied = true;
     private static bool isDead = false;
 
@@ -41,7 +41,7 @@ public class Player : MonoBehaviour {
         if (level <= 0)
             level = 1;
         if (weaponDamage <= 0)
-            weaponDamage = 25;
+            weaponDamage = 15;
 
         SetStats();
         health = healthTotal;
