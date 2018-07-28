@@ -21,9 +21,9 @@ public class Player : MonoBehaviour {
     private static int endurance;
     private static int weaponDamage;
     private static int fullDamage;
-    private static int armor = 0;
+    private static int armor;
     //Shield stability 0.0f - 1.0f
-    private static float stability = 0.05f;
+    private static float stability;
     private static bool isLevelApplied = true;
     private static bool isDead = false;
 
@@ -42,6 +42,8 @@ public class Player : MonoBehaviour {
             level = 1;
         if (weaponDamage <= 0)
             weaponDamage = 25;
+        if (stability <= 0)
+            stability = 0.15f;
 
         SetStats();
         health = healthTotal;
@@ -139,6 +141,7 @@ public class Player : MonoBehaviour {
             if (health == 0)
             {
                 isDead = true;
+                //TODO
                 Debug.Log("Dead");
             }
             else
