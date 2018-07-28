@@ -25,6 +25,7 @@ public class Player : MonoBehaviour {
     //Shield stability 0.0f - 1.0f
     private static float stability;
     private static bool isLevelApplied = true;
+    private static bool isDead = false;
 
     private static Animator weapon;
     private static Animator shield;
@@ -82,12 +83,13 @@ public class Player : MonoBehaviour {
             shield.SetBool("Blocking", false);
         }
 
+        healthText.text = "Health: " + health;
         staminaText.text = "Stamina: " + stamina;
     }
 
     IEnumerator RegenStamina()
     {
-        while (true)
+        while (!isDead)
         {
             if (!shield.GetBool("Blocking") && stamina < staminaTotal)
             {
@@ -105,15 +107,44 @@ public class Player : MonoBehaviour {
         healthTotal = 100 + (10 * (vitality - 1));
         staminaTotal = 100 + (10 * (endurance - 1));
         expNeeded = 100 + (int)Mathf.Floor(Mathf.Exp(level));
-        fullDamage = weaponDamage + (10 * (strength-1));
+        fullDamage = weaponDamage + (5 * (strength-1));
 
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void TakeDamage(int damage, bool blocked)
     {
-        if(other.gameObject.CompareTag("EnemyWeapon"))
+        if (!isDead)
         {
+            if (!blocked)
+            {
+                health -= Mathf.Abs(damage - armor);
+            }
+            else
+            {
+                int staminaDamage = (int)Mathf.Floor(stability * damage);
+                if (stamina - staminaDamage < 0)
+                {
+                    health -= Mathf.Abs(damage - stamina - armor);
+                    stamina = 0;
+                    
+                }
+                else {
+                    health -= Mathf.Abs(damage - staminaDamage - armor);
+                    stamina -= staminaDamage;
+                }
+            }
 
+            health = Mathf.Clamp(health, 0, healthTotal);
+
+            if (health == 0)
+            {
+                isDead = true;
+                Debug.Log("Dead");
+            }
+            else
+            {
+                //animator.Play("Damaged");
+            }
         }
     }
 

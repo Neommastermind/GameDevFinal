@@ -21,7 +21,6 @@ public class Enemy : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        //Get the animator
         animator = GetComponent<Animator>();
 
         //Find the player
@@ -52,18 +51,18 @@ public class Enemy : MonoBehaviour {
         healthTotal = 100 + (10 * (vitality - 1));
         health = healthTotal;
         weaponDamage = 25;
-        fullDamage = weaponDamage + (10 * (strength - 1));
+        fullDamage = weaponDamage + (5 * (strength - 1));
         armor = Random.Range(0, level/3);
         exp = 15*level;
         gold = 100*level;
 
         //Start attacking
-        //StartCoroutine("Attack");
+        StartCoroutine("Attack");
     }
 	
 	// Update is called once per frame
 	void Update () {
-
+        Debug.Log("Enemy Health: " + health);
 	}
 
     IEnumerator Attack()
@@ -97,9 +96,10 @@ public class Enemy : MonoBehaviour {
     public void TakeDamage(int damage)
     {
         if (!dead) {
-            health -= (damage - armor);
+            health -= Mathf.Abs(damage - armor);
+            health = Mathf.Clamp(health, 0, healthTotal);
 
-            if (health <= 0)
+            if (health == 0)
             {
                 dead = true;
                 StartCoroutine("Die");
@@ -114,6 +114,18 @@ public class Enemy : MonoBehaviour {
     public int GetFullDamage()
     {
         return fullDamage;
+    }
+
+    public void DealDamage(bool blocked)
+    {
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Light-Attack"))
+        {
+            player.TakeDamage(fullDamage, blocked);
+        }
+        else
+        {
+            player.TakeDamage((int)Mathf.Floor(fullDamage * 1.25f), blocked);
+        }
     }
 
 }
