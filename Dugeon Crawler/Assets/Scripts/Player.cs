@@ -41,7 +41,7 @@ public class Player : MonoBehaviour {
         if (level <= 0)
             level = 1;
         if (weaponDamage <= 0)
-            weaponDamage = 15;
+            weaponDamage = 25;
 
         SetStats();
         health = healthTotal;

@@ -10,7 +10,6 @@ public class WeaponCollider : MonoBehaviour {
     {
         if (other.gameObject.CompareTag("Enemy") && gameObject.CompareTag("Sword"))
         {
-            Debug.Log("Enemy hit");
             enemy = other.gameObject.GetComponent<Enemy>();
         }
         else if (gameObject.CompareTag("EnemyWeapon") && !other.gameObject.CompareTag("Sword"))
