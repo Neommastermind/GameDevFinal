@@ -45,10 +45,8 @@ public class WeaponCollider : MonoBehaviour {
             {
                 enemy.TakeDamage((int)Mathf.Floor(damage * 1.25f));
             }
-        }
-        else
-        {
-            Debug.Log("No Enemy");
+            //Make sure we reset the enemy
+            enemy = null;
         }
     }
 }

@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour {
     private int armor;
     private bool dead = false;
     private bool hasHit = false;
+    private bool attacking = false;
 
     private float navigationTime = 0.0f;
     private float navigationUpdate = 0.25f;
@@ -68,13 +69,13 @@ public class Enemy : MonoBehaviour {
         gold = 100*level;
 
         //Start attacking
-        //StartCoroutine("Attack");
+        StartCoroutine("Attack");
     }
 	
 	// Update is called once per frame
 	void Update () {
         navigationTime += Time.deltaTime;
-        if (navigationTime > navigationUpdate)
+        if (navigationTime > navigationUpdate && !attacking)
         {
             if (target != null)
             {
@@ -90,6 +91,7 @@ public class Enemy : MonoBehaviour {
                 {
                     animator.SetTrigger("Running");
                 }
+
                 agent.destination = target.position;
             }
             else
@@ -103,19 +105,39 @@ public class Enemy : MonoBehaviour {
         }
     }
 
+    private void FixedUpdate()
+    {
+        //Make sure the enemy is facing the right way during combat
+        if (!attacking && agent.remainingDistance <= agent.stoppingDistance)
+        {
+            //Set the location where we want to look and make sure we look forward
+            Vector3 lookPos = target.position - transform.position;
+            lookPos.y = 0;
+
+            //Perform the look
+            Quaternion lookRotation = Quaternion.LookRotation(lookPos);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 10.0f * Time.deltaTime);
+        }
+    }
+
     IEnumerator Attack()
     {
         while(!dead)
         {
-            int selection = Random.Range(0, 2);
-            switch(selection)
-            {
-                case 0:
-                    animator.Play("Light-Attack");
-                    break;
-                case 1:
-                    animator.Play("Heavy-Attack");
-                    break;
+            if ((transform.position - target.position).magnitude <= 6.0f) {
+                int selection = Random.Range(0, 2);
+                //Inform the gameobject that we are now attacking
+                attacking = true;
+
+                switch (selection)
+                {
+                    case 0:
+                        animator.Play("Light-Attack");
+                        break;
+                    case 1:
+                        animator.Play("Heavy-Attack");
+                        break;
+                }
             }
 
             yield return new WaitForSeconds(3);
@@ -167,11 +189,12 @@ public class Enemy : MonoBehaviour {
         }
     }
 
-    public void ResetHit()
+    public void ResetAttack()
     {
-        //This is used for an animation event to reset the hit
+        //This is used for an animation event to reset the attack booleans
         //At the end of every attack animation
         hasHit = false;
+        attacking = false;
     }
    
     public void SetHasHit(bool status)
