@@ -22,10 +22,13 @@ public class Enemy : MonoBehaviour {
     private float navigationTime = 0.0f;
     private float navigationUpdate = 0.25f;
     private Transform target;
+    private bool tracking = false;
 
     private Animator animator;
     private Player player;
     private NavMeshAgent agent;
+
+    public float detectionRange;
 
     // Use this for initialization
     void Start () {
@@ -77,7 +80,8 @@ public class Enemy : MonoBehaviour {
         navigationTime += Time.deltaTime;
         if (navigationTime > navigationUpdate && !attacking)
         {
-            if (target != null)
+            //Don't track the target until they are within a certain distance
+            if (target != null && (transform.position - target.position).magnitude <= detectionRange)
             {
                 if(agent.velocity.magnitude == 0)
                 {
@@ -92,10 +96,12 @@ public class Enemy : MonoBehaviour {
                     animator.SetTrigger("Running");
                 }
 
+                tracking = true;
                 agent.destination = target.position;
             }
             else
             {
+                tracking = false;
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("Stand"))
                 {
                     animator.SetTrigger("Idleing");
@@ -108,7 +114,7 @@ public class Enemy : MonoBehaviour {
     private void FixedUpdate()
     {
         //Make sure the enemy is facing the right way during combat
-        if (!attacking && agent.remainingDistance <= agent.stoppingDistance)
+        if (!attacking && tracking && agent.remainingDistance <= agent.stoppingDistance)
         {
             //Set the location where we want to look and make sure we look forward
             Vector3 lookPos = target.position - transform.position;

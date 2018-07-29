@@ -8,6 +8,8 @@ TagManager:
   - Shield
   - Enemy
   - EnemyWeapon
+  - GameManager
+  - Spawners
   layers:
   - Default
   - TransparentFX
