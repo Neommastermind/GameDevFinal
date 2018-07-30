@@ -10,6 +10,8 @@ TagManager:
   - EnemyWeapon
   - GameManager
   - Spawners
+  - Exit
+  - Treasure
   layers:
   - Default
   - TransparentFX
