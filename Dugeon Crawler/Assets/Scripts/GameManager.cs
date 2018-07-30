@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour {
         //Spawn a single enemy at every spawn point in this zone
         for(int i = 1; i < spawners.Length; i++)
         {
+            Debug.Log(spawners[i].position);
             Instantiate(enemy, spawners[i].position, spawners[i].rotation);
         }
     }
