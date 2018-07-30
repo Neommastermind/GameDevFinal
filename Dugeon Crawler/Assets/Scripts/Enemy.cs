@@ -87,7 +87,7 @@ public class Enemy : MonoBehaviour {
                 {
                     animator.SetTrigger("Standing");
                 }
-                else if(agent.velocity.magnitude < 5)
+                else if(agent.velocity.magnitude < 5 && agent.velocity.magnitude != 0)
                 {
                     animator.SetTrigger("Walking");
                 }
@@ -131,9 +131,9 @@ public class Enemy : MonoBehaviour {
         while(!dead)
         {
             if ((transform.position - target.position).magnitude <= 6.0f) {
-                int selection = Random.Range(0, 2);
                 //Inform the gameobject that we are now attacking
                 attacking = true;
+                int selection = Random.Range(0, 2);
 
                 switch (selection)
                 {
@@ -146,7 +146,7 @@ public class Enemy : MonoBehaviour {
                 }
             }
 
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(2);
         }
     }
 
@@ -156,6 +156,7 @@ public class Enemy : MonoBehaviour {
         player.AddGold(gold);
         animator.Play("Death");
         yield return new WaitForSeconds(3);
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().EnemyDefeated();
         Destroy(gameObject);
     }
 
