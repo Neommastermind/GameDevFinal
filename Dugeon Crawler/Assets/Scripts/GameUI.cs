@@ -8,8 +8,8 @@ public class GameUI : MonoBehaviour {
 
     public Canvas stats;
     public Canvas options;
-    public Text healthText;
-    public Text staminaText;
+    public Slider healthBar;
+    public Slider staminaBar;
     public Text potionText;
     public Text armorText;
     public Text level;
@@ -82,12 +82,22 @@ public class GameUI : MonoBehaviour {
 
     public void UpdateHealth()
     {
-        healthText.text = "Health: " + player.GetHealth();
+        healthBar.value = player.GetHealth();
+    }
+
+    public void UpdateHealthTotal()
+    {
+        healthBar.maxValue = player.GetHealthTotal();
     }
 
     public void UpdateStamina()
     {
-        staminaText.text = "Stamina: " + player.GetStamina();
+        staminaBar.value = player.GetStamina();
+    }
+
+    public void UpdateStaminaTotal()
+    {
+        staminaBar.maxValue = player.GetStaminaTotal();
     }
 
     public void UpdatePotions()
@@ -211,6 +221,7 @@ public class GameUI : MonoBehaviour {
     public void UpgradeVitality()
     {
         player.incrementVitality();
+        healthBar.maxValue = player.GetHealthTotal();
         CloseUpgrades();
         UpdateStats();
     }
@@ -218,6 +229,7 @@ public class GameUI : MonoBehaviour {
     public void UpgradeEndurance()
     {
         player.incrementEndurance();
+        staminaBar.maxValue = player.GetStaminaTotal();
         CloseUpgrades();
         UpdateStats();
     }

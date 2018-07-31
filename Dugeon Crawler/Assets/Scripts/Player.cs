@@ -51,6 +51,8 @@ public class Player : MonoBehaviour {
         stamina = staminaTotal;
         healthPotions = 3;
 
+        gameUI.UpdateHealthTotal();
+        gameUI.UpdateStaminaTotal();
         gameUI.UpdateHealth();
         gameUI.UpdateStamina();
         gameUI.UpdatePotions();
@@ -112,7 +114,7 @@ public class Player : MonoBehaviour {
     {
         healthTotal = 100 + (10 * (vitality - 1));
         staminaTotal = 100 + (10 * (endurance - 1));
-        expNeeded = 100 + (int)Mathf.Floor(Mathf.Exp(level));
+        expNeeded = level*100 + (int)Mathf.Floor(Mathf.Exp(level));
         fullDamage = weaponDamage + (5 * (strength-1));
         staminaRegen = 5 + (endurance * 5);
     }
