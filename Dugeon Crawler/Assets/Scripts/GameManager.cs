@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour {
     public GameObject player;
     public GameObject enemy;
     public GameObject[] zones;
+    public GameUI gameUI;
 
     private int zone = 0;
     private int enemyTotal = 0;

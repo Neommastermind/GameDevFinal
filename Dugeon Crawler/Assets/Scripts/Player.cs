@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
 
-    public Text healthText;
-    public Text staminaText;
+    public GameUI gameUI;
 
     private static int health;
     private static int stamina;
@@ -22,6 +21,8 @@ public class Player : MonoBehaviour {
     private static int weaponDamage;
     private static int fullDamage;
     private static int armor;
+    private static int healthPotions;
+    private static int staminaRegen;
     //Shield stability 0.0f - 1.0f
     private static float stability;
     private static bool isLevelApplied = true;
@@ -48,9 +49,9 @@ public class Player : MonoBehaviour {
         SetStats();
         health = healthTotal;
         stamina = staminaTotal;
+        healthPotions = 3;
 
-        healthText.text = "Health: " + health;
-        staminaText.text = "Stamina: " + stamina;
+        gameUI.UpdateHealth();
 
         weapon = GameObject.FindGameObjectWithTag("Sword").GetComponent<Animator>();
         shield = GameObject.FindGameObjectWithTag("Shield").GetComponent<Animator>();
@@ -85,8 +86,8 @@ public class Player : MonoBehaviour {
             shield.SetBool("Blocking", false);
         }
 
-        healthText.text = "Health: " + health;
-        staminaText.text = "Stamina: " + stamina;
+        gameUI.UpdateHealth();
+        gameUI.UpdateStamina();
     }
 
     IEnumerator RegenStamina()
@@ -96,7 +97,7 @@ public class Player : MonoBehaviour {
             if (!shield.GetBool("Blocking") && stamina < staminaTotal)
             {
                 //Only regen stamina if the player isn't blocking, and you haven't exceeded the stamina total.
-                stamina += 5 + (endurance*5);
+                stamina += staminaRegen;
                 //Make sure we don't go over the stamina total.
                 stamina = Mathf.Clamp(stamina, 0, staminaTotal);
             }
@@ -110,7 +111,7 @@ public class Player : MonoBehaviour {
         staminaTotal = 100 + (10 * (endurance - 1));
         expNeeded = 100 + (int)Mathf.Floor(Mathf.Exp(level));
         fullDamage = weaponDamage + (5 * (strength-1));
-
+        staminaRegen = 5 + (endurance * 5);
     }
 
     public void TakeDamage(int damage, bool blocked)
@@ -151,14 +152,89 @@ public class Player : MonoBehaviour {
         }
     }
 
+    public int GetHealth()
+    {
+        return health;
+    }
+
+    public int GetStamina()
+    {
+        return stamina;
+    }
+
+    public int GetHealthPotions()
+    {
+        return healthPotions;
+    }
+
+    public int GetArmor()
+    {
+        return armor;
+    }
+
     public int GetLevel()
     {
         return level;
     }
 
+    public int GetWeaponDamage()
+    {
+        return weaponDamage;
+    }
+
+    public float GetShieldStability()
+    {
+        return stability;
+    }
+
     public int GetFullDamage()
     {
         return fullDamage;
+    }
+
+    public int GetExp()
+    {
+        return exp;
+    }
+
+    public int GetExpNeeded()
+    {
+        return expNeeded;
+    }
+
+    public int GetStrength()
+    {
+        return strength;
+    }
+
+    public int GetVitality()
+    {
+        return vitality;
+    }
+
+    public int GetHealthTotal()
+    {
+        return healthTotal;
+    }
+
+    public int GetEndurance()
+    {
+        return endurance;
+    }
+
+    public int GetStaminaTotal()
+    {
+        return staminaTotal;
+    }
+
+    public int GetStaminaRegen()
+    {
+        return staminaRegen;
+    }
+
+    public int GetGold()
+    {
+        return gold;
     }
 
     public void AddExp(int experience)
@@ -168,7 +244,7 @@ public class Player : MonoBehaviour {
         if (isLevelApplied && exp >= expNeeded)
         {
             isLevelApplied = false;
-
+            gameUI.ShowUpgrades();
         }
     }
 
@@ -176,4 +252,38 @@ public class Player : MonoBehaviour {
     {
         gold += goldGain;
     }
+
+    public void incrementStrength()
+    {
+        if (!isLevelApplied)
+        {
+            level++;
+            strength++;
+            isLevelApplied = true;
+            SetStats();
+        }
+    }
+
+    public void incrementVitality()
+    {
+        if (!isLevelApplied)
+        {
+            vitality++;
+            level++;
+            isLevelApplied = true;
+            SetStats();
+        }
+    }
+
+    public void incrementEndurance()
+    {
+        if (!isLevelApplied)
+        {
+            endurance++;
+            level++;
+            isLevelApplied = true;
+            SetStats();
+        }
+    }
+
 }
