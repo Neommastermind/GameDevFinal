@@ -247,6 +247,7 @@ public class Player : MonoBehaviour {
         if (isLevelApplied && exp >= expNeeded)
         {
             isLevelApplied = false;
+            gameUI.DisplayRequest("Level Up!");
             gameUI.ShowUpgrades();
         }
     }
@@ -262,7 +263,7 @@ public class Player : MonoBehaviour {
         {
             level++;
             strength++;
-            exp = 0;
+            exp = exp - expNeeded;
             isLevelApplied = true;
             SetStats();
         }
@@ -274,7 +275,7 @@ public class Player : MonoBehaviour {
         {
             vitality++;
             level++;
-            exp = 0;
+            exp = exp - expNeeded;
             isLevelApplied = true;
             SetStats();
         }
@@ -286,7 +287,7 @@ public class Player : MonoBehaviour {
         {
             endurance++;
             level++;
-            exp = 0;
+            exp = exp - expNeeded;
             isLevelApplied = true;
             SetStats();
         }

@@ -27,6 +27,7 @@ public class GameUI : MonoBehaviour {
     public Button btnSU;
     public Button btnVU;
     public Button btnEU;
+    public Text infoText;
     public Player player;
 
     private UnityStandardAssets.Characters.FirstPerson.RigidbodyFirstPersonController cameraController;
@@ -219,5 +220,17 @@ public class GameUI : MonoBehaviour {
         player.incrementEndurance();
         CloseUpgrades();
         UpdateStats();
+    }
+
+    public void DisplayRequest(string info)
+    {
+        StartCoroutine("DisplayInfo", info);
+    }
+
+    IEnumerator DisplayInfo(string info)
+    {
+        infoText.text = info;
+        yield return new WaitForSeconds(5);
+        infoText.text = "";
     }
 }
