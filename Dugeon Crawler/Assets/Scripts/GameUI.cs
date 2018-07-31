@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameUI : MonoBehaviour {
 
@@ -26,13 +27,57 @@ public class GameUI : MonoBehaviour {
     public Button btnSU;
     public Button btnVU;
     public Button btnEU;
+    public Player player;
 
-    private Player player;
+    private UnityStandardAssets.Characters.FirstPerson.RigidbodyFirstPersonController cameraController;
 
-	// Use this for initialization
-	void Start () {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-	}
+    void Start()
+    {
+        cameraController = player.GetComponent<UnityStandardAssets.Characters.FirstPerson.RigidbodyFirstPersonController>();
+    }
+
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            if (!stats.isActiveAndEnabled)
+            {
+                OpenStats();
+            }
+            else
+            {
+                CloseStats();
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!options.isActiveAndEnabled)
+            {
+                OpenOptions();
+            }
+            else
+            {
+                CloseOptions();
+            }
+        }
+    }
+
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+    }
+
+    public void ExitGame()
+    {
+        if (Application.isEditor)
+        {
+            UnityEditor.EditorApplication.isPlaying = false;
+        }
+        else
+        {
+            Application.Quit();
+        }
+    }
 
     public void UpdateHealth()
     {
@@ -56,23 +101,73 @@ public class GameUI : MonoBehaviour {
 
     public void CloseStats()
     {
-        stats.gameObject.SetActive(false);
+        if (!stats.isActiveAndEnabled)
+        {
+            OpenStats();
+        }
+        else
+        {
+            stats.gameObject.SetActive(false);
+            cameraController.mouseLook.lockCursor = true;
+            cameraController.enabled = true;
+            player.enabled = true;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
     }
 
     public void OpenStats()
     {
-        UpdateStats();
-        stats.gameObject.SetActive(true);
+        if (stats.isActiveAndEnabled)
+        {
+            CloseStats();
+        }
+        else
+        {
+            options.gameObject.SetActive(false);
+            UpdateStats();
+            stats.gameObject.SetActive(true);
+            cameraController.mouseLook.lockCursor = false;
+            cameraController.enabled = false;
+            player.enabled = false;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
     }
 
     public void OpenOptions()
     {
-        options.gameObject.SetActive(true);
+        if (options.isActiveAndEnabled)
+        {
+            CloseOptions();
+        }
+        else
+        {
+            stats.gameObject.SetActive(false);
+            options.gameObject.SetActive(true);
+            cameraController.mouseLook.lockCursor = false;
+            cameraController.enabled = false;
+            player.enabled = false;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
     }
 
     public void CloseOptions()
     {
-        options.gameObject.SetActive(false);
+        if (!options.isActiveAndEnabled)
+        {
+            OpenOptions();
+        }
+        else
+        {
+            options.gameObject.SetActive(false);
+            cameraController.mouseLook.lockCursor = true;
+            cameraController.enabled = true;
+            player.enabled = true;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
     }
 
     public void UpdateStats()

@@ -52,6 +52,9 @@ public class Player : MonoBehaviour {
         healthPotions = 3;
 
         gameUI.UpdateHealth();
+        gameUI.UpdateStamina();
+        gameUI.UpdatePotions();
+        gameUI.UpdateArmor();
 
         weapon = GameObject.FindGameObjectWithTag("Sword").GetComponent<Animator>();
         shield = GameObject.FindGameObjectWithTag("Shield").GetComponent<Animator>();
@@ -259,6 +262,7 @@ public class Player : MonoBehaviour {
         {
             level++;
             strength++;
+            exp = 0;
             isLevelApplied = true;
             SetStats();
         }
@@ -270,6 +274,7 @@ public class Player : MonoBehaviour {
         {
             vitality++;
             level++;
+            exp = 0;
             isLevelApplied = true;
             SetStats();
         }
@@ -281,6 +286,7 @@ public class Player : MonoBehaviour {
         {
             endurance++;
             level++;
+            exp = 0;
             isLevelApplied = true;
             SetStats();
         }

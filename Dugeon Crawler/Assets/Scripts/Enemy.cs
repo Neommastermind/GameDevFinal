@@ -69,7 +69,7 @@ public class Enemy : MonoBehaviour {
         fullDamage = weaponDamage + (5 * (strength - 1));
         armor = Random.Range(0, level/3);
         exp = 15*level;
-        gold = 100*level;
+        gold = 10*level;
 
         //Start attacking
         StartCoroutine("Attack");
