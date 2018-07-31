@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.AI;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour {
 
@@ -28,7 +29,12 @@ public class Enemy : MonoBehaviour {
     private Player player;
     private NavMeshAgent agent;
 
+    public string enemyName;
     public float detectionRange;
+    public float attackRange;
+    public float attackRate;
+    public Text infoBar;
+    public Slider healthBar;
 
     // Use this for initialization
     void Start () {
@@ -70,6 +76,12 @@ public class Enemy : MonoBehaviour {
         armor = Random.Range(0, level/3);
         exp = 15*level;
         gold = 10*level;
+
+        //Write the enemies info bar out
+        infoBar.text = enemyName + "\nLevel: " + level;
+        //Set up the health bar
+        healthBar.maxValue = healthTotal;
+        healthBar.value = healthTotal;
 
         //Start attacking
         StartCoroutine("Attack");
@@ -130,7 +142,7 @@ public class Enemy : MonoBehaviour {
     {
         while(!dead)
         {
-            if ((transform.position - target.position).magnitude <= 6.0f) {
+            if ((transform.position - target.position).magnitude <= attackRange) {
                 //Inform the gameobject that we are now attacking
                 attacking = true;
                 int selection = Random.Range(0, 2);
@@ -146,7 +158,7 @@ public class Enemy : MonoBehaviour {
                 }
             }
 
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(attackRate);
         }
     }
 
@@ -165,7 +177,7 @@ public class Enemy : MonoBehaviour {
         if (!dead) {
             health -= Mathf.Abs(damage - armor);
             health = Mathf.Clamp(health, 0, healthTotal);
-            Debug.Log("Enemy Health: " + health);
+            healthBar.value = health;
 
             if (health == 0)
             {
