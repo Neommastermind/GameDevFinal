@@ -10,7 +10,7 @@ public class GameUI : MonoBehaviour {
     public Canvas options;
     public Slider healthBar;
     public Slider staminaBar;
-    public Text potionText;
+    public Text healthPotionText;
     public Text armorText;
     public Text level;
     public Text exp;
@@ -100,9 +100,9 @@ public class GameUI : MonoBehaviour {
         staminaBar.maxValue = player.GetStaminaTotal();
     }
 
-    public void UpdatePotions()
+    public void UpdateHealthPotions()
     {
-        potionText.text = "Health Potions: " + player.GetHealthPotions();
+        healthPotionText.text = "Health Potions: " + player.GetHealthPotions();
     }
 
     public void UpdateArmor()
@@ -242,7 +242,7 @@ public class GameUI : MonoBehaviour {
     IEnumerator DisplayInfo(string info)
     {
         infoText.text = info;
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3);
         infoText.text = "";
     }
 }

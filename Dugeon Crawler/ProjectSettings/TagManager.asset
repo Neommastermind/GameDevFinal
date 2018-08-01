@@ -12,6 +12,7 @@ TagManager:
   - Spawners
   - Exit
   - Treasure
+  - GameUI
   layers:
   - Default
   - TransparentFX
@@ -27,7 +28,7 @@ TagManager:
   - PlayerItem
   - Enemy
   - EnemyItem
-  - 
+  - Chest
   - 
   - 
   - 

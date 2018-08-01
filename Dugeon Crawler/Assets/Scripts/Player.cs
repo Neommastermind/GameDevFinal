@@ -55,7 +55,7 @@ public class Player : MonoBehaviour {
         gameUI.UpdateStaminaTotal();
         gameUI.UpdateHealth();
         gameUI.UpdateStamina();
-        gameUI.UpdatePotions();
+        gameUI.UpdateHealthPotions();
         gameUI.UpdateArmor();
 
         weapon = GameObject.FindGameObjectWithTag("Sword").GetComponent<Animator>();
@@ -257,6 +257,34 @@ public class Player : MonoBehaviour {
     public void AddGold(int goldGain)
     {
         gold += goldGain;
+    }
+
+    public void AddHealthPotions(int potions)
+    {
+        healthPotions += potions;
+        gameUI.UpdateHealthPotions();
+        gameUI.DisplayRequest("You have recieved " + potions + " Health Potions!");
+    }
+
+    public void AddWeaponDamage(int damage)
+    {
+        weaponDamage += damage;
+        fullDamage = weaponDamage + (5 * (strength - 1));
+        gameUI.DisplayRequest("You have recieved a better weapon!");
+    }
+
+    public void AddArmor(int armorAmount)
+    {
+        armor += armorAmount;
+        gameUI.UpdateArmor();
+        gameUI.DisplayRequest("You have recieved " + armor + " Armor!");
+    }
+
+    public void AddShieldStability(float shieldStability)
+    {
+        stability += shieldStability;
+        stability = Mathf.Clamp(stability, 0.0f, 1.0f);
+        gameUI.DisplayRequest("You have recieved a better shield!");
     }
 
     public void incrementStrength()
