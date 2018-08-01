@@ -91,6 +91,15 @@ public class Player : MonoBehaviour {
             shield.SetBool("Blocking", false);
         }
 
+        if(Input.GetKeyDown(KeyCode.Q) && healthPotions > 0)
+        {
+            //Drink a health potion
+            healthPotions--;
+            health += (int)Mathf.Floor(healthTotal * 0.6f);
+            health = Mathf.Clamp(health, 0, healthTotal);
+            gameUI.UpdateHealthPotions();
+        }
+
         gameUI.UpdateHealth();
         gameUI.UpdateStamina();
     }
