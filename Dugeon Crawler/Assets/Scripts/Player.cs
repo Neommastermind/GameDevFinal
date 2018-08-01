@@ -33,18 +33,12 @@ public class Player : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        if (strength <= 0)
-            strength = 1;
-        if (vitality <= 0)
-            vitality = 1;
-        if (endurance <= 0)
-            endurance = 1;
-        if (level <= 0)
-            level = 1;
-        if (weaponDamage <= 0)
-            weaponDamage = 25;
-        if (stability <= 0)
-            stability = 0.15f;
+        strength = 1;
+        vitality = 1;
+        endurance = 1;
+        level = 1;
+        weaponDamage = 25;
+        stability = 0.15f;
 
         SetStats();
         health = healthTotal;

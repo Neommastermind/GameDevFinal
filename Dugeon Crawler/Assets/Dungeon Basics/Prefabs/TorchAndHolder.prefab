@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4491360268591692}
   - component: {fileID: 198668683357152762}
   - component: {fileID: 199130220112533634}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: FireParticleSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52,7 +52,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4183027054313476}
   - component: {fileID: 108328804332895614}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Point light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4605557854656154}
   - component: {fileID: 108792033368910930}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Point light (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
