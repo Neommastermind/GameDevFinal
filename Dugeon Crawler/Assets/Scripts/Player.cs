@@ -122,6 +122,17 @@ public class Player : MonoBehaviour {
         staminaRegen = 5 + (endurance * 5);
     }
 
+    IEnumerator Die()
+    {
+        isDead = true;
+        enabled = false;
+        Destroy(weapon.gameObject);
+        Destroy(shield.gameObject);
+        gameUI.DisplayDeathScreen();
+        yield return new WaitForSeconds(5);
+        gameUI.LoadMainMenu();
+    }
+
     public void TakeDamage(int damage, bool blocked)
     {
         if (!isDead)
@@ -149,9 +160,7 @@ public class Player : MonoBehaviour {
 
             if (health == 0)
             {
-                isDead = true;
-                //TODO
-                Debug.Log("Dead");
+                StartCoroutine("Die");
             }
             else
             {

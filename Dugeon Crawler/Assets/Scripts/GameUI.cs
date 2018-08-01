@@ -8,6 +8,8 @@ public class GameUI : MonoBehaviour {
 
     public Canvas stats;
     public Canvas options;
+    public GameObject HUD;
+    public GameObject gameOverScreen;
     public Slider healthBar;
     public Slider staminaBar;
     public Text healthPotionText;
@@ -232,6 +234,14 @@ public class GameUI : MonoBehaviour {
         staminaBar.maxValue = player.GetStaminaTotal();
         CloseUpgrades();
         UpdateStats();
+    }
+
+    public void DisplayDeathScreen()
+    {
+        cameraController.mouseLook.lockCursor = false;
+        cameraController.enabled = false;
+        HUD.gameObject.SetActive(false);
+        gameOverScreen.gameObject.SetActive(true);
     }
 
     public void DisplayRequest(string info)
