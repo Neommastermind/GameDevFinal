@@ -72,14 +72,14 @@ public class GameUI : MonoBehaviour {
 
     public void ExitGame()
     {
-        if (Application.isEditor)
-        {
-            UnityEditor.EditorApplication.isPlaying = false;
-        }
-        else
-        {
+        //if (Application.isEditor)
+        //{
+            //UnityEditor.EditorApplication.isPlaying = false;
+        //}
+        //else
+        //{
             Application.Quit();
-        }
+        //}
     }
 
     public void UpdateHealth()
