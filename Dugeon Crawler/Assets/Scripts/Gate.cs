@@ -10,6 +10,7 @@ public class Gate : MonoBehaviour {
         if(other.CompareTag("Player"))
         {
             GetComponentInParent<Animator>().SetTrigger("Lower");
+            GetComponentInParent<AudioSource>().PlayOneShot(SoundManager.Instance.gateClose);
             gameObject.GetComponent<BoxCollider>().enabled = false;
         }
 

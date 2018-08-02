@@ -24,10 +24,13 @@ public class Enemy : MonoBehaviour {
     private float navigationUpdate = 0.25f;
     private Transform target;
     private bool tracking = false;
+    private float nextAttack;
+    private int attackSelection;
 
     private Animator animator;
     private Player player;
     private NavMeshAgent agent;
+    private AudioSource audio;
 
     public string enemyName;
     public float detectionRange;
@@ -35,11 +38,14 @@ public class Enemy : MonoBehaviour {
     public float attackRate;
     public Text infoBar;
     public Slider healthBar;
+    public AudioClip moveSound;
+    public AudioClip deathSound;
 
     // Use this for initialization
     void Start () {
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        audio = GetComponent<AudioSource>();
 
         //Find the player
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
@@ -82,72 +88,22 @@ public class Enemy : MonoBehaviour {
         //Set up the health bar
         healthBar.maxValue = healthTotal;
         healthBar.value = healthTotal;
-
-        //Start attacking
-        StartCoroutine("Attack");
     }
 	
 	// Update is called once per frame
 	void Update () {
-        navigationTime += Time.deltaTime;
-        if (navigationTime > navigationUpdate && !attacking)
+
+        if (!dead)
         {
-            //Don't track the target until they are within a certain distance
-            if (target != null && (transform.position - target.position).magnitude <= detectionRange)
+            if (Time.time >= nextAttack && tracking && (transform.position - target.position).magnitude <= attackRange)
             {
-                if(agent.velocity.magnitude == 0)
-                {
-                    animator.SetTrigger("Standing");
-                }
-                else if(agent.velocity.magnitude < 5 && agent.velocity.magnitude != 0)
-                {
-                    animator.SetTrigger("Walking");
-                }
-                else
-                {
-                    animator.SetTrigger("Running");
-                }
-
-                tracking = true;
-                agent.destination = target.position;
-            }
-            else
-            {
-                tracking = false;
-                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Stand"))
-                {
-                    animator.SetTrigger("Idleing");
-                }
-            }
-            navigationTime = 0;
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        //Make sure the enemy is facing the right way during combat
-        if (!attacking && tracking && agent.remainingDistance <= agent.stoppingDistance)
-        {
-            //Set the location where we want to look and make sure we look forward
-            Vector3 lookPos = target.position - transform.position;
-            lookPos.y = 0;
-
-            //Perform the look
-            Quaternion lookRotation = Quaternion.LookRotation(lookPos);
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 10.0f * Time.deltaTime);
-        }
-    }
-
-    IEnumerator Attack()
-    {
-        while(!dead)
-        {
-            if ((transform.position - target.position).magnitude <= attackRange) {
+                //Calculate the next attack time
+                nextAttack = attackRate + Time.time;
                 //Inform the gameobject that we are now attacking
                 attacking = true;
-                int selection = Random.Range(0, 2);
+                attackSelection = Random.Range(0, 2);
 
-                switch (selection)
+                switch (attackSelection)
                 {
                     case 0:
                         animator.Play("Light-Attack");
@@ -158,7 +114,69 @@ public class Enemy : MonoBehaviour {
                 }
             }
 
-            yield return new WaitForSeconds(attackRate);
+            navigationTime += Time.deltaTime;
+            if (!attacking && navigationTime > navigationUpdate)
+            {
+                //Don't track the target until they are within a certain distance
+                if (target != null && (transform.position - target.position).magnitude <= detectionRange)
+                {
+                    if (agent.velocity.magnitude == 0)
+                    {
+                        animator.SetTrigger("Standing");
+                        if (audio.isPlaying)
+                        {
+                            audio.Stop();
+                        }
+                    }
+                    else if (agent.velocity.magnitude < 5 && agent.velocity.magnitude != 0)
+                    {
+                        animator.SetTrigger("Walking");
+                        if (!audio.isPlaying)
+                        {
+                            audio.PlayOneShot(moveSound);
+                        }
+                    }
+                    else if (agent.velocity.magnitude >= 5)
+                    {
+                        animator.SetTrigger("Running");
+                        if (!audio.isPlaying)
+                        {
+                            audio.PlayOneShot(moveSound);
+                        }
+                    }
+
+                    tracking = true;
+                    agent.destination = target.position;
+                }
+                else
+                {
+                    tracking = false;
+                    if (animator.GetCurrentAnimatorStateInfo(0).IsName("Stand"))
+                    {
+                        animator.SetTrigger("Idleing");
+                        if (audio.isPlaying)
+                        {
+                            audio.Stop();
+                        }
+                    }
+                }
+                navigationTime = 0;
+            }
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        //Make sure the enemy is facing the right way during combat
+        if (!dead && !attacking && tracking && agent.remainingDistance <= agent.stoppingDistance)
+        {
+            //Set the location where we want to look and make sure we look forward
+            Vector3 lookPos = target.position - transform.position;
+            lookPos.y = 0;
+
+            //Perform the look
+            Quaternion lookRotation = Quaternion.LookRotation(lookPos);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 10.0f * Time.deltaTime);
         }
     }
 
@@ -179,14 +197,17 @@ public class Enemy : MonoBehaviour {
             health = Mathf.Clamp(health, 0, healthTotal);
             healthBar.value = health;
 
-            if (health == 0)
+            if (health <= 0)
             {
                 dead = true;
                 StartCoroutine("Die");
             }
             else
             {
-                animator.Play("Damaged");
+                if (!attacking)
+                {
+                    animator.Play("Damaged");
+                }
             }
         }
     }
@@ -198,7 +219,7 @@ public class Enemy : MonoBehaviour {
 
     public void DealDamage(bool blocked)
     {
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Light-Attack"))
+        if (attackSelection == 0)
         {
             player.TakeDamage(fullDamage, blocked);
         }

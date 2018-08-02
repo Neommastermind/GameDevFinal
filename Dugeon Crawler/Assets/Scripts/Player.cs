@@ -30,6 +30,7 @@ public class Player : MonoBehaviour {
 
     private static Animator weapon;
     private static Animator shield;
+    private static AudioSource audio;
 
     // Use this for initialization
     void Start () {
@@ -54,6 +55,7 @@ public class Player : MonoBehaviour {
 
         weapon = GameObject.FindGameObjectWithTag("Sword").GetComponent<Animator>();
         shield = GameObject.FindGameObjectWithTag("Shield").GetComponent<Animator>();
+        audio = GetComponent<AudioSource>();
 
         StartCoroutine("RegenStamina");
     }
@@ -94,6 +96,11 @@ public class Player : MonoBehaviour {
             gameUI.UpdateHealthPotions();
         }
 
+        /*if(health <= 30)
+        {
+            SoundManager.Instance.PlayOneShot(SoundManager.Instance.heartbeat);
+        }*/
+
         gameUI.UpdateHealth();
         gameUI.UpdateStamina();
     }
@@ -129,6 +136,7 @@ public class Player : MonoBehaviour {
         Destroy(weapon.gameObject);
         Destroy(shield.gameObject);
         gameUI.DisplayDeathScreen();
+        audio.PlayOneShot(SoundManager.Instance.playerDeath);
         yield return new WaitForSeconds(5);
         gameUI.LoadMainMenu();
     }
@@ -140,6 +148,7 @@ public class Player : MonoBehaviour {
             if (!blocked)
             {
                 health -= Mathf.Abs(damage - armor);
+                audio.PlayOneShot(SoundManager.Instance.playerHit);
             }
             else
             {
@@ -154,6 +163,7 @@ public class Player : MonoBehaviour {
                     health -= Mathf.Abs(damage - staminaDamage - armor);
                     stamina -= staminaDamage;
                 }
+                audio.PlayOneShot(SoundManager.Instance.shieldHit);
             }
 
             health = Mathf.Clamp(health, 0, healthTotal);

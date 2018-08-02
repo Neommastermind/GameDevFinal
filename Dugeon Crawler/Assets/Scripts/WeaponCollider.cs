@@ -18,13 +18,11 @@ public class WeaponCollider : MonoBehaviour {
 
             if (!enemy.GetHasHit() && other.gameObject.CompareTag("Shield"))
             {
-                Debug.Log("Shield hit");
                 enemy.SetHasHit(true);
                 enemy.DealDamage(true);
             }
             else if (!enemy.GetHasHit() && other.gameObject.CompareTag("Player"))
             {
-                Debug.Log("Player hit");
                 enemy.SetHasHit(true);
                 enemy.DealDamage(false);
             }
