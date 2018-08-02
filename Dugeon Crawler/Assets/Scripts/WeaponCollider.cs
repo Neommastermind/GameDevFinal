@@ -5,11 +5,20 @@ using UnityEngine;
 public class WeaponCollider : MonoBehaviour {
 
     private Enemy enemy;
+    private Player player;
+    private AudioSource playerAudio;
+
+    private void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        playerAudio = player.gameObject.GetComponent<AudioSource>();
+    }
 
     void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Enemy") && gameObject.CompareTag("Sword"))
         {
+            playerAudio.PlayOneShot(SoundManager.Instance.swordHit);
             enemy = other.gameObject.GetComponent<Enemy>();
         }
         else if (gameObject.CompareTag("EnemyWeapon") && !other.gameObject.CompareTag("Sword"))
@@ -33,7 +42,7 @@ public class WeaponCollider : MonoBehaviour {
     {
         if (enemy != null)
         {
-            int damage = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().GetFullDamage();
+            int damage = player.GetFullDamage();
 
             if (gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Light-Attack"))
             {

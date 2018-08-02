@@ -40,12 +40,22 @@ public class Enemy : MonoBehaviour {
     public Slider healthBar;
     public AudioClip moveSound;
     public AudioClip deathSound;
+    public AudioClip attackSound;
 
     // Use this for initialization
     void Start () {
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
-        audio = GetComponent<AudioSource>();
+
+        //Find the empty audio Source
+        AudioSource[] sources = GetComponents<AudioSource>();
+        foreach (AudioSource source in sources)
+        {
+            if (source.clip == null)
+            {
+                audio = source;
+            }
+        }
 
         //Find the player
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
@@ -123,26 +133,14 @@ public class Enemy : MonoBehaviour {
                     if (agent.velocity.magnitude == 0)
                     {
                         animator.SetTrigger("Standing");
-                        if (audio.isPlaying)
-                        {
-                            audio.Stop();
-                        }
                     }
                     else if (agent.velocity.magnitude < 5 && agent.velocity.magnitude != 0)
                     {
                         animator.SetTrigger("Walking");
-                        if (!audio.isPlaying)
-                        {
-                            audio.PlayOneShot(moveSound);
-                        }
                     }
                     else if (agent.velocity.magnitude >= 5)
                     {
                         animator.SetTrigger("Running");
-                        if (!audio.isPlaying)
-                        {
-                            audio.PlayOneShot(moveSound);
-                        }
                     }
 
                     tracking = true;
@@ -154,10 +152,6 @@ public class Enemy : MonoBehaviour {
                     if (animator.GetCurrentAnimatorStateInfo(0).IsName("Stand"))
                     {
                         animator.SetTrigger("Idleing");
-                        if (audio.isPlaying)
-                        {
-                            audio.Stop();
-                        }
                     }
                 }
                 navigationTime = 0;
@@ -227,6 +221,12 @@ public class Enemy : MonoBehaviour {
         {
             player.TakeDamage((int)Mathf.Floor(fullDamage * 1.25f), blocked);
         }
+    }
+
+    public void AttackSound()
+    {
+        //This method is used in an animation to trigger the attack sound
+        audio.PlayOneShot(attackSound);
     }
 
     public void ResetAttack()

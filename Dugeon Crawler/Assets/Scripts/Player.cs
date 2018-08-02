@@ -27,6 +27,7 @@ public class Player : MonoBehaviour {
     private static float stability;
     private static bool isLevelApplied = true;
     private static bool isDead = false;
+    private static bool godMode = false;
 
     private static Animator weapon;
     private static Animator shield;
@@ -67,12 +68,14 @@ public class Player : MonoBehaviour {
         {
             //Heavy attack
             stamina -= 50;
+            audio.PlayOneShot(SoundManager.Instance.swordMiss);
             weapon.Play("Heavy-Attack");
         }
         else if (Input.GetMouseButtonDown(0) && !Input.GetKey(KeyCode.LeftShift) && stamina >= 25 && weapon.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
             //Light attack
             stamina -= 25;
+            audio.PlayOneShot(SoundManager.Instance.swordMiss);
             weapon.Play("Light-Attack");
         }
 
@@ -96,6 +99,11 @@ public class Player : MonoBehaviour {
             gameUI.UpdateHealthPotions();
         }
 
+        if(Input.GetKeyDown(KeyCode.G))
+        {
+            GodMode();
+        }
+
         /*if(health <= 30)
         {
             SoundManager.Instance.PlayOneShot(SoundManager.Instance.heartbeat);
@@ -103,6 +111,11 @@ public class Player : MonoBehaviour {
 
         gameUI.UpdateHealth();
         gameUI.UpdateStamina();
+    }
+
+    private void GodMode()
+    {
+        godMode = !godMode;
     }
 
     IEnumerator RegenStamina()
@@ -168,7 +181,7 @@ public class Player : MonoBehaviour {
 
             health = Mathf.Clamp(health, 0, healthTotal);
 
-            if (health == 0)
+            if (health == 0 && !godMode)
             {
                 StartCoroutine("Die");
             }

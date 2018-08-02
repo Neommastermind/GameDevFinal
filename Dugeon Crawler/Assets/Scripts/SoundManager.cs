@@ -14,6 +14,8 @@ public class SoundManager : MonoBehaviour {
     public AudioClip playerDeath;
     public AudioClip gateOpen;
     public AudioClip gateClose;
+    public AudioClip swordMiss;
+    public AudioClip swordHit;
 
     // Use this for initialization
     void Start()

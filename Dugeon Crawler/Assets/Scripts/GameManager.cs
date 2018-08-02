@@ -48,17 +48,25 @@ public class GameManager : MonoBehaviour {
     private void CloseZoneGates()
     {
         //Close the exit gate
-        FindGameObjectInChildWithTag(zones[zone], "Exit").GetComponentInChildren<Animator>().SetTrigger("Lower");
+        Animator exit = FindGameObjectInChildWithTag(zones[zone], "Exit").GetComponentInChildren<Animator>();
+        exit.SetTrigger("Lower");
+        exit.gameObject.GetComponentInChildren<AudioSource>().PlayOneShot(SoundManager.Instance.gateClose);
         //Close the treasure gates
-        FindGameObjectInChildWithTag(zones[zone], "Treasure").GetComponentInChildren<Animator>().SetTrigger("Lower");
+        Animator treasure = FindGameObjectInChildWithTag(zones[zone], "Treasure").GetComponentInChildren<Animator>();
+        treasure.SetTrigger("Lower");
+        treasure.gameObject.GetComponentInChildren<AudioSource>().PlayOneShot(SoundManager.Instance.gateClose);
     }
 
     private void OpenZoneGates()
     {
         //Open the exit gate
-        FindGameObjectInChildWithTag(zones[zone], "Exit").GetComponentInChildren<Animator>().SetTrigger("Raise");
+        Animator exit = FindGameObjectInChildWithTag(zones[zone], "Exit").GetComponentInChildren<Animator>();
+        exit.SetTrigger("Raise");
+        exit.gameObject.GetComponentInChildren<AudioSource>().PlayOneShot(SoundManager.Instance.gateOpen);
         //Open the treasure gates
-        FindGameObjectInChildWithTag(zones[zone], "Treasure").GetComponentInChildren<Animator>().SetTrigger("Raise");
+        Animator treasure = FindGameObjectInChildWithTag(zones[zone], "Treasure").GetComponentInChildren<Animator>();
+        treasure.SetTrigger("Raise");
+        treasure.gameObject.GetComponentInChildren<AudioSource>().PlayOneShot(SoundManager.Instance.gateOpen);
     }
 
     public void EnemyDefeated()

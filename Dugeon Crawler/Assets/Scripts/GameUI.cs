@@ -84,7 +84,7 @@ public class GameUI : MonoBehaviour {
 
     public void UpdateHealth()
     {
-        healthBar.value = player.GetHealth();
+        healthBar.value = Mathf.MoveTowards(healthBar.value, player.GetHealth(), 1.0f);
     }
 
     public void UpdateHealthTotal()
@@ -94,7 +94,7 @@ public class GameUI : MonoBehaviour {
 
     public void UpdateStamina()
     {
-        staminaBar.value = player.GetStamina();
+        staminaBar.value = Mathf.MoveTowards(staminaBar.value, player.GetStamina(), 1.0f);
     }
 
     public void UpdateStaminaTotal()
