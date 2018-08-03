@@ -41,6 +41,9 @@ public class Player : MonoBehaviour {
         level = 1;
         weaponDamage = 25;
         stability = 0.15f;
+        isLevelApplied = true;
+        isDead = false;
+        godMode = false;
 
         SetStats();
         health = healthTotal;
