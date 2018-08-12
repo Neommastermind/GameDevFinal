@@ -13,6 +13,7 @@ TagManager:
   - Exit
   - Treasure
   - GameUI
+  - BossArena
   layers:
   - Default
   - TransparentFX
