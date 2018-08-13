@@ -157,6 +157,12 @@ public class Player : MonoBehaviour {
         gameUI.LoadMainMenu();
     }
 
+    public void Kill()
+    {
+        health = 0;
+        StartCoroutine("Die");
+    }
+
     public void TakeDamage(int damage, bool blocked)
     {
         if (!isDead)
@@ -187,10 +193,6 @@ public class Player : MonoBehaviour {
             if (health == 0 && !godMode)
             {
                 StartCoroutine("Die");
-            }
-            else
-            {
-                //animator.Play("Damaged");
             }
         }
     }

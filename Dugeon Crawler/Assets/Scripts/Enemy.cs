@@ -176,12 +176,19 @@ public class Enemy : MonoBehaviour {
 
     IEnumerator Die()
     {
+        dead = true;
         player.AddExp(exp);
         player.AddGold(gold);
         animator.Play("Death");
         yield return new WaitForSeconds(3);
         GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().EnemyDefeated();
         Destroy(gameObject);
+    }
+
+    public void Kill()
+    {
+        health = 0;
+        StartCoroutine("Die");
     }
 
     public void TakeDamage(int damage)
@@ -193,7 +200,6 @@ public class Enemy : MonoBehaviour {
 
             if (health <= 0)
             {
-                dead = true;
                 StartCoroutine("Die");
             }
             else
