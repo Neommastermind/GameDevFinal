@@ -1715,6 +1715,8 @@ MonoBehaviour:
   moveSound: {fileID: 8300000, guid: e6ff3afeae795ae4eb5ae2e00066be5d, type: 3}
   deathSound: {fileID: 0}
   attackSound: {fileID: 8300000, guid: 475a99f1a48377f40a1fcf4fcc4d03ad, type: 3}
+  isBoss: 0
+  isMinion: 0
 --- !u!114 &114662618402530314
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -985,7 +985,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1375938816142628}
   m_LocalRotation: {x: -0, y: 0.7052823, z: -0, w: 0.7089267}
-  m_LocalPosition: {x: -81.465, y: -17.4, z: -19.82}
+  m_LocalPosition: {x: -81.465, y: -20.43, z: -19.82}
   m_LocalScale: {x: 50, y: 50, z: 50}
   m_Children:
   - {fileID: 4422956944911164}
@@ -1699,6 +1699,8 @@ MonoBehaviour:
   moveSound: {fileID: 8300000, guid: e6ff3afeae795ae4eb5ae2e00066be5d, type: 3}
   deathSound: {fileID: 0}
   attackSound: {fileID: 8300000, guid: 475a99f1a48377f40a1fcf4fcc4d03ad, type: 3}
+  isBoss: 1
+  isMinion: 0
 --- !u!114 &114954278774991570
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -16,6 +16,5 @@ public class Gate : MonoBehaviour {
 
         //Inform the game manager that we have entered a new zone
         GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().NextZone();
-        
     }
 }

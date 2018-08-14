@@ -41,6 +41,8 @@ public class Enemy : MonoBehaviour {
     public AudioClip moveSound;
     public AudioClip deathSound;
     public AudioClip attackSound;
+    public bool isBoss;
+    public bool isMinion;
 
     // Use this for initialization
     void Start () {
@@ -85,13 +87,36 @@ public class Enemy : MonoBehaviour {
             }
         }
 
-        healthTotal = 100 + (10 * (vitality - 1));
-        health = healthTotal;
-        weaponDamage = 10;
-        fullDamage = weaponDamage + (5 * (strength - 1));
-        armor = Random.Range(0, level/3);
-        exp = 15*level;
-        gold = 10*level;
+        if (isBoss)
+        {
+            healthTotal = 500 + (10 * (vitality - 1));
+            health = healthTotal;
+            weaponDamage = 30;
+            fullDamage = weaponDamage + (5 * (strength - 1));
+            armor = Random.Range(0, player.GetWeaponDamage() / 2);
+            exp = 50 * level;
+            gold = 45 * level;
+        }
+        else if(isMinion)
+        {
+            healthTotal = 50 + (10 * (vitality - 1));
+            health = healthTotal;
+            weaponDamage = 5;
+            fullDamage = weaponDamage + (5 * (strength - 1));
+            armor = Random.Range(0, player.GetWeaponDamage() / 4);
+            exp = 5 * level;
+            gold = 2 * level;
+        }
+        else
+        {
+            healthTotal = 100 + (10 * (vitality - 1));
+            health = healthTotal;
+            weaponDamage = 10;
+            fullDamage = weaponDamage + (5 * (strength - 1));
+            armor = Random.Range(0, player.GetWeaponDamage() / 3);
+            exp = 15 * level;
+            gold = 10 * level;
+        }
 
         //Write the enemies info bar out
         infoBar.text = enemyName + "\nLevel: " + level;
@@ -181,7 +206,19 @@ public class Enemy : MonoBehaviour {
         player.AddGold(gold);
         animator.Play("Death");
         yield return new WaitForSeconds(3);
-        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().EnemyDefeated();
+
+        if (isBoss)
+        {
+            GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().BossDefeated();
+        }
+        else if (isMinion)
+        {
+            GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().MinionDefeated(this);
+        }
+        else
+        {
+            GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().EnemyDefeated();
+        }
         Destroy(gameObject);
     }
 

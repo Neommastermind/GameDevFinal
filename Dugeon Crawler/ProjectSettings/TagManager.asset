@@ -14,6 +14,9 @@ TagManager:
   - Treasure
   - GameUI
   - BossArena
+  - BossSpawner
+  - MinionSpawner
+  - Teleporter
   layers:
   - Default
   - TransparentFX
