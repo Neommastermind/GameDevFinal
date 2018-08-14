@@ -1723,7 +1723,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: Skeleton Minion
-  detectionRange: 15
+  detectionRange: 100
   attackRange: 6
   attackRate: 2
   infoBar: {fileID: 114425737071131142}

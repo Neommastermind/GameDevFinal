@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        SpawnEnemies();
+        //SpawnEnemies();
 	}
 	
 	// Update is called once per frame
@@ -97,16 +97,18 @@ public class GameManager : MonoBehaviour {
     private void CloseZoneGates()
     {
         //Close the exit gate
-        Animator exit = FindGameObjectInChildWithTag(zones[zone], "Exit").GetComponentInChildren<Animator>();
-        if (exit != null)
+        GameObject gameObjectExit = FindGameObjectInChildWithTag(zones[zone], "Exit");
+        if (gameObjectExit != null)
         {
+            Animator exit = gameObjectExit.GetComponentInChildren<Animator>();
             exit.SetTrigger("Lower");
             exit.gameObject.GetComponentInChildren<AudioSource>().PlayOneShot(SoundManager.Instance.gateClose);
         }
         //Close the treasure gates
-        Animator treasure = FindGameObjectInChildWithTag(zones[zone], "Treasure").GetComponentInChildren<Animator>();
-        if (treasure != null)
+        GameObject gameObjectTreasure = FindGameObjectInChildWithTag(zones[zone], "Treasure");
+        if (gameObjectTreasure != null)
         {
+            Animator treasure = gameObjectTreasure.GetComponentInChildren<Animator>();
             treasure.SetTrigger("Lower");
             treasure.gameObject.GetComponentInChildren<AudioSource>().PlayOneShot(SoundManager.Instance.gateClose);
         }
@@ -115,16 +117,18 @@ public class GameManager : MonoBehaviour {
     private void OpenZoneGates()
     {
         //Open the exit gate
-        Animator exit = FindGameObjectInChildWithTag(zones[zone], "Exit").GetComponentInChildren<Animator>();
-        if (exit != null)
+        GameObject gameObjectExit = FindGameObjectInChildWithTag(zones[zone], "Exit");
+        if (gameObjectExit != null)
         {
+            Animator exit = gameObjectExit.GetComponentInChildren<Animator>();
             exit.SetTrigger("Raise");
             exit.gameObject.GetComponentInChildren<AudioSource>().PlayOneShot(SoundManager.Instance.gateOpen);
         }
         //Open the treasure gates
-        Animator treasure = FindGameObjectInChildWithTag(zones[zone], "Treasure").GetComponentInChildren<Animator>();
-        if (treasure != null)
+        GameObject gameObjectTreasure = FindGameObjectInChildWithTag(zones[zone], "Treasure");
+        if (gameObjectTreasure != null)
         {
+            Animator treasure = gameObjectTreasure.GetComponentInChildren<Animator>();
             treasure.SetTrigger("Raise");
             treasure.gameObject.GetComponentInChildren<AudioSource>().PlayOneShot(SoundManager.Instance.gateOpen);
         }
