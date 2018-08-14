@@ -94,8 +94,8 @@ public class Enemy : MonoBehaviour {
             weaponDamage = 30;
             fullDamage = weaponDamage + (5 * (strength - 1));
             armor = Random.Range(0, player.GetWeaponDamage() / 2);
-            exp = 30 * level;
-            gold = 25 * level;
+            exp = 50 * level;
+            gold = 45 * level;
         }
         else if(isMinion)
         {

@@ -282,16 +282,20 @@ public class Player : MonoBehaviour {
         return gold;
     }
 
-    public void AddExp(int experience)
+    private void CheckXP()
     {
-        exp += experience;
-
         if (isLevelApplied && exp >= expNeeded)
         {
             isLevelApplied = false;
             gameUI.DisplayRequest("Level Up!");
             gameUI.ShowUpgrades();
         }
+    }
+
+    public void AddExp(int experience)
+    {
+        exp += experience;
+        CheckXP();
     }
 
     public void AddGold(int goldGain)
@@ -336,6 +340,7 @@ public class Player : MonoBehaviour {
             exp = exp - expNeeded;
             isLevelApplied = true;
             SetStats();
+            CheckXP();
         }
     }
 
@@ -348,6 +353,7 @@ public class Player : MonoBehaviour {
             exp = exp - expNeeded;
             isLevelApplied = true;
             SetStats();
+            CheckXP();
         }
     }
 
@@ -360,6 +366,7 @@ public class Player : MonoBehaviour {
             exp = exp - expNeeded;
             isLevelApplied = true;
             SetStats();
+            CheckXP();
         }
     }
 
