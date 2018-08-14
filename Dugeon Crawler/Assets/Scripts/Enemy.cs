@@ -89,19 +89,19 @@ public class Enemy : MonoBehaviour {
 
         if (isBoss)
         {
-            healthTotal = 500 + (10 * (vitality - 1));
+            healthTotal = 300 + (10 * (vitality - 1));
             health = healthTotal;
             weaponDamage = 30;
             fullDamage = weaponDamage + (5 * (strength - 1));
             armor = Random.Range(0, player.GetWeaponDamage() / 2);
-            exp = 50 * level;
-            gold = 45 * level;
+            exp = 30 * level;
+            gold = 25 * level;
         }
         else if(isMinion)
         {
-            healthTotal = 50 + (10 * (vitality - 1));
+            healthTotal = 25 + (10 * (vitality - 1));
             health = healthTotal;
-            weaponDamage = 5;
+            weaponDamage = 2;
             fullDamage = weaponDamage + (5 * (strength - 1));
             armor = Random.Range(0, player.GetWeaponDamage() / 4);
             exp = 5 * level;

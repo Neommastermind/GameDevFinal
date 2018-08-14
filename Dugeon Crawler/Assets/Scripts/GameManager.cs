@@ -172,7 +172,7 @@ public class GameManager : MonoBehaviour {
     {
         while(isBoss)
         {
-            if(minions.Count < enemyTotal)
+            if(minions.Count < enemyTotal - 1)
             {
                 Transform spawner = minionSpawners[Random.Range(0, minionSpawners.Count - 1)];
                 minions.Add(Instantiate(minion, spawner.position, spawner.rotation).GetComponent<Enemy>());

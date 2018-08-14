@@ -985,7 +985,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1375938816142628}
   m_LocalRotation: {x: -0, y: 0.7052823, z: -0, w: 0.7089267}
-  m_LocalPosition: {x: -81.465, y: -20.43, z: -19.82}
+  m_LocalPosition: {x: -71.3, y: -5.9, z: -19.82}
   m_LocalScale: {x: 50, y: 50, z: 50}
   m_Children:
   - {fileID: 4422956944911164}
@@ -1074,8 +1074,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1334412919434448}
   m_LocalRotation: {x: 0.0017026957, y: -0.20583567, z: -0.23196198, w: 0.95069575}
-  m_LocalPosition: {x: -0.0408, y: 0.0111, z: 0.0519}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.0434, y: 0.0117, z: 0.058}
+  m_LocalScale: {x: 1.2937031, y: 1.5570028, z: 1.2136356}
   m_Children: []
   m_Father: {fileID: 4960966286349926}
   m_RootOrder: 2
@@ -1692,8 +1692,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Skeleton Boss
   detectionRange: 100
-  attackRange: 6
-  attackRate: 2
+  attackRange: 10
+  attackRate: 5
   infoBar: {fileID: 114609749549107500}
   healthBar: {fileID: 114960950087532798}
   moveSound: {fileID: 8300000, guid: e6ff3afeae795ae4eb5ae2e00066be5d, type: 3}
@@ -1924,11 +1924,11 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.05
-  m_Speed: 10
+  m_Speed: 5
   m_Acceleration: 4
   avoidancePriority: 50
   m_AngularSpeed: 720
-  m_StoppingDistance: 5.5
+  m_StoppingDistance: 9
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
