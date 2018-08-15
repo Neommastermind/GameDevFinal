@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour {
         {
             isBoss = true;
         }
-        else
+        else if(!zones[zone].CompareTag("FloorExit"))
         {
             //Spawn all of the intital enemies for the zone
             SpawnEnemies();

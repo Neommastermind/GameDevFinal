@@ -17,6 +17,7 @@ TagManager:
   - BossSpawner
   - MinionSpawner
   - Teleporter
+  - FloorExit
   layers:
   - Default
   - TransparentFX

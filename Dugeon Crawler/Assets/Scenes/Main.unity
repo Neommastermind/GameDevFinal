@@ -43284,7 +43284,7 @@ GameObject:
   - component: {fileID: 1712545368}
   m_Layer: 0
   m_Name: EndZone
-  m_TagString: Untagged
+  m_TagString: FloorExit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
