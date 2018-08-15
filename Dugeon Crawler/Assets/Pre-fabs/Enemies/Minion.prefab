@@ -1723,7 +1723,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: Skeleton Minion
-  detectionRange: 100
+  detectionRange: 200
   attackRange: 6
   attackRate: 3
   infoBar: {fileID: 114425737071131142}
@@ -1924,7 +1924,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.05
-  m_Speed: 10
+  m_Speed: 12
   m_Acceleration: 4
   avoidancePriority: 50
   m_AngularSpeed: 720

@@ -1691,7 +1691,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: Skeleton Boss
-  detectionRange: 100
+  detectionRange: 200
   attackRange: 10
   attackRate: 5
   infoBar: {fileID: 114609749549107500}

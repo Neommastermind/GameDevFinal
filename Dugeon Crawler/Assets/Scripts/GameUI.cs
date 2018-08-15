@@ -197,6 +197,9 @@ public class GameUI : MonoBehaviour {
         endurance.text = "Endurance: " + player.GetEndurance();
         maxStam.text = "Max Stamina: " + player.GetStaminaTotal();
         stamRegen.text = "Stamina Regeneration: " + player.GetStaminaRegen() + "/s";
+
+        //Check to see if the user has leveled up, just in case we went over at some point
+        player.CheckXP();
     }
 
     public void ShowUpgrades()

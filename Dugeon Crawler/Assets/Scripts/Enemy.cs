@@ -104,8 +104,8 @@ public class Enemy : MonoBehaviour {
             weaponDamage = 2;
             fullDamage = weaponDamage + (5 * (strength - 1));
             armor = Random.Range(0, player.GetWeaponDamage() / 4);
-            exp = 5 * level;
-            gold = 2 * level;
+            exp = 0;
+            gold = 0;
         }
         else
         {

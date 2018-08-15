@@ -282,7 +282,7 @@ public class Player : MonoBehaviour {
         return gold;
     }
 
-    private void CheckXP()
+    public void CheckXP()
     {
         if (isLevelApplied && exp >= expNeeded)
         {
@@ -340,7 +340,6 @@ public class Player : MonoBehaviour {
             exp = exp - expNeeded;
             isLevelApplied = true;
             SetStats();
-            CheckXP();
         }
     }
 
@@ -353,7 +352,6 @@ public class Player : MonoBehaviour {
             exp = exp - expNeeded;
             isLevelApplied = true;
             SetStats();
-            CheckXP();
         }
     }
 
@@ -366,7 +364,6 @@ public class Player : MonoBehaviour {
             exp = exp - expNeeded;
             isLevelApplied = true;
             SetStats();
-            CheckXP();
         }
     }
 
