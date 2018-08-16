@@ -100,6 +100,8 @@ public class Player : MonoBehaviour {
             health += (int)Mathf.Floor(healthTotal * 0.6f);
             health = Mathf.Clamp(health, 0, healthTotal);
             gameUI.UpdateHealthPotions();
+            //Play the potion drinking sound
+            SoundManager.Instance.PlayOneShot(SoundManager.Instance.drinkPotion);
         }
 
         if(Input.GetKeyDown(KeyCode.G))
@@ -151,8 +153,6 @@ public class Player : MonoBehaviour {
         enabled = false;
         weapon.gameObject.SetActive(false);
         shield.gameObject.SetActive(false);
-        //Destroy(weapon.gameObject);
-        //Destroy(shield.gameObject);
         gameUI.DisplayDeathScreen();
         audio.PlayOneShot(SoundManager.Instance.playerDeath);
         yield return new WaitForSeconds(5);
@@ -291,6 +291,8 @@ public class Player : MonoBehaviour {
             isLevelApplied = false;
             gameUI.DisplayRequest("Level Up!");
             gameUI.ShowUpgrades();
+            //Play the level up sound
+            SoundManager.Instance.PlayOneShot(SoundManager.Instance.levelUp);
         }
     }
 

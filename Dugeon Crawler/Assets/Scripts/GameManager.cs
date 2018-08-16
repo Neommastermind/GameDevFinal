@@ -88,6 +88,8 @@ public class GameManager : MonoBehaviour {
     public void StartBossFight()
     {
         isBossStarted = true;
+        //Start the boss fight music
+        SoundManager.Instance.ChangeBackgroundMusic(SoundManager.Instance.backgroundBoss);
         //Spawn all of the intital enemies for the zone
         SpawnEnemies();
         //Start spawning minions if this is a boss zone
@@ -157,9 +159,11 @@ public class GameManager : MonoBehaviour {
         //We are no longer in a boss fight
         isBoss = false;
         isBossStarted = false;
+        //Start the normal background music
+        SoundManager.Instance.ChangeBackgroundMusic(SoundManager.Instance.backgroundCreepy);
 
         //Kill all of the minions
-        foreach(Enemy enemy in minions)
+        foreach (Enemy enemy in minions)
         {
             enemy.Kill();
         }

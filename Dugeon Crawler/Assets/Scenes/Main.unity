@@ -49179,16 +49179,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 114654253922659006, guid: b81e5f687163518419040d37405d116e,
-        type: 2}
-      propertyPath: backgroundCreepy
-      value: 
-      objectReference: {fileID: 8300000, guid: 225d12a5947ae394caa02161a0420004, type: 3}
-    - target: {fileID: 114654253922659006, guid: b81e5f687163518419040d37405d116e,
-        type: 2}
-      propertyPath: lavaDeath
-      value: 
-      objectReference: {fileID: 8300000, guid: 46af9160101b97b44b52de8a46b3d423, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b81e5f687163518419040d37405d116e, type: 2}
   m_IsPrefabParent: 0

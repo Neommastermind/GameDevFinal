@@ -245,12 +245,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b65bc97e019d5484d879a076f1ef3d69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backgroundCreepy: {fileID: 0}
+  backgroundCreepy: {fileID: 8300000, guid: 225d12a5947ae394caa02161a0420004, type: 3}
+  backgroundBoss: {fileID: 8300000, guid: 9511b91fbc8127043873911f57bd1c38, type: 3}
   shieldHit: {fileID: 8300000, guid: b41a30bf05a78e3478474db1b95e439b, type: 3}
   playerHit: {fileID: 8300000, guid: d149d113f8da83743a4662c45def8309, type: 3}
   playerDeath: {fileID: 8300000, guid: a6208ef520ee007458a75aab424daa8c, type: 3}
+  levelUp: {fileID: 8300000, guid: 8ad6d9347fd4a034495506e6171f1b6d, type: 3}
+  drinkPotion: {fileID: 8300000, guid: a012670304e4093458d3c33e61ad4bc1, type: 3}
   gateOpen: {fileID: 8300000, guid: f9fd9158f2d4ade4aac8480fd45189dc, type: 3}
   gateClose: {fileID: 8300000, guid: def5f77745a12e648b9184a2cc362fa7, type: 3}
   swordMiss: {fileID: 8300000, guid: c3bebebb86ba1074aa53cd83f3d60f9b, type: 3}
   swordHit: {fileID: 8300000, guid: 4d00c49e553b6d34dadf35b5e3930ecc, type: 3}
-  lavaDeath: {fileID: 8300000, guid: 679d80c997962554e917d1a98e5697e0, type: 3}
+  lavaDeath: {fileID: 8300000, guid: 46af9160101b97b44b52de8a46b3d423, type: 3}

@@ -9,9 +9,12 @@ public class SoundManager : MonoBehaviour {
     private AudioSource sfxAudio;
 
     public AudioClip backgroundCreepy;
+    public AudioClip backgroundBoss;
     public AudioClip shieldHit;
     public AudioClip playerHit;
     public AudioClip playerDeath;
+    public AudioClip levelUp;
+    public AudioClip drinkPotion;
     public AudioClip gateOpen;
     public AudioClip gateClose;
     public AudioClip swordMiss;
@@ -53,5 +56,6 @@ public class SoundManager : MonoBehaviour {
     {
         backgroundAudio.Stop();
         backgroundAudio.clip = clip;
+        backgroundAudio.Play();
     }
 }
