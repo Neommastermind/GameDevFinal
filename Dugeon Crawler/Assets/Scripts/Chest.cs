@@ -28,6 +28,8 @@ public class Chest : MonoBehaviour {
                 open = true;
                 infoCanvas.gameObject.SetActive(false);
                 GetComponent<Animator>().Play("ChestOpen");
+                //Play the open chest noise
+                SoundManager.Instance.PlayOneShot(SoundManager.Instance.openChest);
                 StartCoroutine("OpenChest");
             }
         }
@@ -43,6 +45,7 @@ public class Chest : MonoBehaviour {
     IEnumerator OpenChest()
     {
         int selection = Random.Range(0, 4);
+        yield return new WaitForSeconds(4);
         switch (selection)
         {
             case 0:
@@ -59,7 +62,7 @@ public class Chest : MonoBehaviour {
                 break;
         }
 
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(4);
 
         Destroy(gameObject);
     }

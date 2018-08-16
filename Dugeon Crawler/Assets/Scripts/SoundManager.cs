@@ -15,6 +15,7 @@ public class SoundManager : MonoBehaviour {
     public AudioClip playerDeath;
     public AudioClip levelUp;
     public AudioClip drinkPotion;
+    public AudioClip openChest;
     public AudioClip gateOpen;
     public AudioClip gateClose;
     public AudioClip swordMiss;

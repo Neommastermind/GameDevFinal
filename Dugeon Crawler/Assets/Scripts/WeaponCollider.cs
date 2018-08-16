@@ -50,7 +50,7 @@ public class WeaponCollider : MonoBehaviour {
             }
             else
             {
-                enemy.TakeDamage((int)Mathf.Floor(damage * 1.25f));
+                enemy.TakeDamage((int)Mathf.Floor(damage * 1.5f));
             }
             //Make sure we reset the enemy
             enemy = null;

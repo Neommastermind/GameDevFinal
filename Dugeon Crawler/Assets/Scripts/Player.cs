@@ -344,6 +344,9 @@ public class Player : MonoBehaviour {
             exp = exp - expNeeded;
             isLevelApplied = true;
             SetStats();
+            //Set the players health and stamina back to full
+            health = healthTotal;
+            stability = staminaTotal;
         }
     }
 
@@ -356,6 +359,9 @@ public class Player : MonoBehaviour {
             exp = exp - expNeeded;
             isLevelApplied = true;
             SetStats();
+            //Set the players health and stamina back to full
+            health = healthTotal;
+            stability = staminaTotal;
         }
     }
 
@@ -368,6 +374,9 @@ public class Player : MonoBehaviour {
             exp = exp - expNeeded;
             isLevelApplied = true;
             SetStats();
+            //Set the players health and stamina back to full
+            health = healthTotal;
+            stability = staminaTotal;
         }
     }
 

@@ -252,6 +252,7 @@ MonoBehaviour:
   playerDeath: {fileID: 8300000, guid: a6208ef520ee007458a75aab424daa8c, type: 3}
   levelUp: {fileID: 8300000, guid: 8ad6d9347fd4a034495506e6171f1b6d, type: 3}
   drinkPotion: {fileID: 8300000, guid: a012670304e4093458d3c33e61ad4bc1, type: 3}
+  openChest: {fileID: 8300000, guid: d4c3b850a0c091141b7e8c4123872be6, type: 3}
   gateOpen: {fileID: 8300000, guid: f9fd9158f2d4ade4aac8480fd45189dc, type: 3}
   gateClose: {fileID: 8300000, guid: def5f77745a12e648b9184a2cc362fa7, type: 3}
   swordMiss: {fileID: 8300000, guid: c3bebebb86ba1074aa53cd83f3d60f9b, type: 3}
