@@ -6,9 +6,9 @@ public class SoundManager : MonoBehaviour {
 
     public static SoundManager Instance = null;
     private AudioSource backgroundAudio;
+    private AudioSource sfxAudio;
 
-    public AudioClip background;
-    public AudioClip heartbeat;
+    public AudioClip backgroundCreepy;
     public AudioClip shieldHit;
     public AudioClip playerHit;
     public AudioClip playerDeath;
@@ -16,6 +16,7 @@ public class SoundManager : MonoBehaviour {
     public AudioClip gateClose;
     public AudioClip swordMiss;
     public AudioClip swordHit;
+    public AudioClip lavaDeath;
 
     // Use this for initialization
     void Start()
@@ -29,27 +30,28 @@ public class SoundManager : MonoBehaviour {
             Destroy(gameObject);
         }
 
-        backgroundAudio = GetComponent<AudioSource>();
-
-        /*AudioSource[] sources = GetComponents<AudioSource>();
+        AudioSource[] sources = GetComponents<AudioSource>();
         foreach (AudioSource source in sources)
         {
             if (source.clip == null)
             {
-                soundEffectAudio = source;
+                sfxAudio = source;
             }
-        }*/
+            else
+            {
+                backgroundAudio = source;
+            }
+        }
     }
 
     public void PlayOneShot(AudioClip clip)
     {
-        backgroundAudio.PlayOneShot(clip);
+        sfxAudio.PlayOneShot(clip);
     }
 
-
-    // Update is called once per frame
-    void Update()
+    public void ChangeBackgroundMusic(AudioClip clip)
     {
-
+        backgroundAudio.Stop();
+        backgroundAudio.clip = clip;
     }
 }

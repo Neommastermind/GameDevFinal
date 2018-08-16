@@ -6,7 +6,10 @@ public class Lava : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player"))
+        //Have the sound manager play the lava death sound if anything hits it
+        SoundManager.Instance.PlayOneShot(SoundManager.Instance.lavaDeath);
+
+        if (other.CompareTag("Player"))
         {
             //Get the player object
             Player player = other.GetComponent<Player>();
