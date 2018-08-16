@@ -205,6 +205,7 @@ public class Enemy : MonoBehaviour {
         player.AddExp(exp);
         player.AddGold(gold);
         animator.Play("Death");
+        audio.PlayOneShot(deathSound);
         yield return new WaitForSeconds(3);
 
         if (isBoss)

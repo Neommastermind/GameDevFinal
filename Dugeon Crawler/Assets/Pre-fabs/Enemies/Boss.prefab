@@ -1355,7 +1355,8 @@ AudioSource:
   m_GameObject: {fileID: 1375938816142628}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 243955767958816566, guid: a157a0ff5a6ebb6438c109d7e9c35221,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: e6ff3afeae795ae4eb5ae2e00066be5d, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.5
@@ -1450,7 +1451,8 @@ AudioSource:
   m_GameObject: {fileID: 1375938816142628}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 243955767958816566, guid: a157a0ff5a6ebb6438c109d7e9c35221,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -1697,7 +1699,7 @@ MonoBehaviour:
   infoBar: {fileID: 114609749549107500}
   healthBar: {fileID: 114960950087532798}
   moveSound: {fileID: 8300000, guid: e6ff3afeae795ae4eb5ae2e00066be5d, type: 3}
-  deathSound: {fileID: 0}
+  deathSound: {fileID: 8300000, guid: c7c1c44e1ed072c48a9e18ad6c3d406a, type: 3}
   attackSound: {fileID: 8300000, guid: 475a99f1a48377f40a1fcf4fcc4d03ad, type: 3}
   isBoss: 1
   isMinion: 0

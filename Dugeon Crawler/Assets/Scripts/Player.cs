@@ -149,8 +149,10 @@ public class Player : MonoBehaviour {
     {
         isDead = true;
         enabled = false;
-        Destroy(weapon.gameObject);
-        Destroy(shield.gameObject);
+        weapon.gameObject.SetActive(false);
+        shield.gameObject.SetActive(false);
+        //Destroy(weapon.gameObject);
+        //Destroy(shield.gameObject);
         gameUI.DisplayDeathScreen();
         audio.PlayOneShot(SoundManager.Instance.playerDeath);
         yield return new WaitForSeconds(5);
