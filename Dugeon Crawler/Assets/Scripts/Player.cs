@@ -346,7 +346,7 @@ public class Player : MonoBehaviour {
             SetStats();
             //Set the players health and stamina back to full
             health = healthTotal;
-            stability = staminaTotal;
+            stamina = staminaTotal;
         }
     }
 
@@ -361,7 +361,7 @@ public class Player : MonoBehaviour {
             SetStats();
             //Set the players health and stamina back to full
             health = healthTotal;
-            stability = staminaTotal;
+            stamina = staminaTotal;
         }
     }
 
@@ -376,7 +376,7 @@ public class Player : MonoBehaviour {
             SetStats();
             //Set the players health and stamina back to full
             health = healthTotal;
-            stability = staminaTotal;
+            stamina = staminaTotal;
         }
     }
 
